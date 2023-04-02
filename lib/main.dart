@@ -51,29 +51,30 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   // const 定义常量
-  // static const _channel = BasicMessageChannel('messageChannel',StringCodec());//消息通道 传递字符串 和半结构化信息
-  // String? _message;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   _channel.setMessageHandler((message) async {// 注册监听
-  //     print('receive message: $message');
-  //     setState(() {
-  //      _message = message;
-  //     });
-  //     return "";
-  //   });
-  // }
+  static const _channel = BasicMessageChannel('messageChannel',StringCodec());//消息通道 传递字符串 和半结构化信息
+  String? _message;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // 通过BasicMessageChannel 实例，注册一个接收回调，并且返回信息
+    _channel.setMessageHandler((message) async {// 注册监听
+      print('receive message: $message');
+      setState(() {
+       _message = message;
+      });
+      return "aaaaa";
+    });
+  }
 
-//   Future<void> _sendMessage() async{
-//     //异步写法：  .then()
-// // _channel.send('hello').then((value) => null)
-//   //阻塞式 同步写法  函数只执行一句话  使用await或then 都可以  如果上方还有逻辑，上下存在时序问题 选用then
-//     String? message =  await _channel.send('hello from');
-//     print('send message $message');
-//
-//   }
+  Future<void> _sendMessage() async{
+    //异步写法：  .then()
+// _channel.send('hello').then((value) => null)
+  //阻塞式 同步写法  函数只执行一句话  使用await或then 都可以  如果上方还有逻辑，上下存在时序问题 选用then
+    String? message =  await _channel.send('hello from');
+    print('send message $message');
+
+  }
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -130,8 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        // onPressed: _sendMessage,
+        // onPressed: _incrementCounter,
+        onPressed: _sendMessage,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
