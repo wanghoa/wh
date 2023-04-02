@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //异步写法：  .then()
 // _channel.send('hello').then((value) => null)
   //阻塞式 同步写法  函数只执行一句话  使用await或then 都可以  如果上方还有逻辑，上下存在时序问题 选用then
-    String? message =  await _channel.send('hello from');
+    String? message =  await _channel.send('flutter端将信息传给Android----------------------');
     print('send message $message');
 
   }
