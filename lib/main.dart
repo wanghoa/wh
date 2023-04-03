@@ -52,6 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   // const 定义常量
   static const _channel = BasicMessageChannel('messageChannel',StringCodec());//消息通道 传递字符串 和半结构化信息
+  static const _eventChannel = EventChannel('eventChannel');
+  static const _methodChannel = MethodChannel('methodChannel');
   String? _message;
   @override
   void initState() {
@@ -65,6 +67,29 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       return "aaaaa";
     });
+    // 注册广播流监听
+    _eventChannel.receiveBroadcastStream().listen((event) {
+
+        print('Receive event: $event');
+            setState(() {
+              _message = event;
+            });
+    });
+
+     getFlutterInfo();
+
+
+  }
+
+  Future<String> getFlutterInfo() async {
+       final Map<String,dynamic> map = {
+      'name':'flutter',
+    'version':'3.0.1',
+    'language':'dart',
+    'android_api':21
+    };
+    String result = await _methodChannel.invokeMethod('getFlutterINfo',map);
+    return result;
   }
 
   Future<void> _sendMessage() async{
