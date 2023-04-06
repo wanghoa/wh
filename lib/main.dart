@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
  Future<void> _jumpToPage()async{
    // var ack = await router.push(name: MCRouter.secondPage,argument: {MCRouter.key:'来自主页面（mainPage）'});
-    var ack = await router.push(name: MCRouter.secondPage,argument: '来自主页面（mainPage）');
+    var ack = await router.push(name: MCRouter.playerPage,argument: '来自主页面（mainPage）');
     print('_jumpToPage: $ack');
 
   }
