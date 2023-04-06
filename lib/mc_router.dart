@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:wh/main.dart';
+import 'package:wh/player_page.dart';
 import 'package:wh/second_page.dart';
 
 /**
@@ -11,6 +12,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<List<RouteSettings>> {
   static const String mainPage = '/main';
   static const String secondPage = '/second';
+  static const String playerPage = '/player';
   static const String key = 'key';
   static const String value ='value';
 
@@ -106,6 +108,9 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
         break;
       case secondPage:
         page = SecondPage(params: routeSettings.arguments.toString()?? '');
+        break;
+      case playerPage:
+        page = PlayerPage();
         break;
       default:
         page = const Scaffold();
