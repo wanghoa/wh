@@ -1,3 +1,4 @@
+import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
 
 class PlayerPage extends StatefulWidget {
@@ -8,8 +9,12 @@ class PlayerPage extends StatefulWidget {
 }
 
 class _PlayerPageState extends State<PlayerPage> {
+  static const String url =
+      'https://sample-videos.com/video123/flv/240/big_buck_bunny_240p_10mb.flv';
+
   @override
   Widget build(BuildContext context) {
-    return
+    var player = FijkPlayer()..setDataSource(url,autoPlay: true);
+    return FijkView(player: player);
   }
 }
