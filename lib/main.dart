@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wh/mc_router.dart';
 
 void main() {
   runApp(const MyApp());
 }
+var router =  MCRouter(); // 创建Router
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,7 +27,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Router(routerDelegate: router,backButtonDispatcher: RootBackButtonDispatcher(),),
     );
   }
 }
@@ -111,6 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+ Future<void> _jumpToPage()async{
+   // var ack = await router.push(name: MCRouter.secondPage,argument: {MCRouter.key:'来自主页面（mainPage）'});
+    var ack = await router.push(name: MCRouter.secondPage,argument: '来自主页面（mainPage）');
+    print('_jumpToPage: $ack');
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -157,7 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: _incrementCounter,
-        onPressed: _sendMessage,
+        // onPressed: _sendMessage,
+        onPressed: _jumpToPage,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
