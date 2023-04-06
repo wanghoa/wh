@@ -23,6 +23,11 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
 
 
   @override
+  Future<bool> popRoute() {//notifyListeners(); 之后的 回调
+
+  }
+
+  @override
   GlobalKey<NavigatorState> get navigatorKey => GlobalKey<NavigatorState>();
 
   @override
@@ -58,7 +63,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   Future<Object?>  push({required String name ,dynamic argument}) async{
     _boolResultCompleter = Completer<Object?>();
     _pages.add(_createPage(RouteSettings(name:name,arguments:argument)));
-    notifyListeners();
+    notifyListeners(); // 刷新
     return _boolResultCompleter.future;
 
   }
@@ -76,6 +81,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
        default:
          page = const Scaffold();
     }
+    return MaterialPage(child: page,key: Key(routeSettings.name!)as LocalKey,name: routeSettings.name,arguments: routeSettings.arguments);
   }
 
 
