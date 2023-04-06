@@ -1,5 +1,6 @@
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PlayerPage extends StatefulWidget {
   @override
@@ -15,6 +16,6 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   Widget build(BuildContext context) {
     var player = FijkPlayer()..setDataSource(url,autoPlay: true);
-    return FijkView(player: player);
+    return Scaffold(body:FijkView(player: player));
   }
 }
