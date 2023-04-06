@@ -18,6 +18,12 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   // 用来做异步操作
   late Completer<Object?> _boolResultCompleter;
 
+
+  MCRouter(){
+   _pages.add(_createPage(const  RouteSettings(name: mainPage,arguments: [])));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -33,7 +39,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
 
     }
     if (_canPop()) {
-      _pages.removeLast()
+      _pages.removeLast();
           notifyListeners();
           return Future.value(true);
 
