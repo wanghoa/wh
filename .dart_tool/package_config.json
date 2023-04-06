@@ -44,6 +44,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "fijkplayer",
+      "rootUri": "file:///Users/wanghao/Library/flutter/.pub-cache/hosted/pub.flutter-io.cn/fijkplayer-0.10.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/wanghao/Library/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -146,7 +152,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-04-02T15:57:36.452752Z",
+  "generated": "2023-04-06T17:29:20.439787Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }
