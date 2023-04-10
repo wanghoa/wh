@@ -4,7 +4,7 @@ import 'package:player/player.dart';
 import 'package:player/video_view.dart';
 import 'package:wh/main.dart';
 import 'package:wh/mc_router.dart';
-import 'package:wh/video_controller.dart';
+import 'package:wh/video_page/video_controller.dart';
 
 class VideoList extends StatefulWidget {
   @override
