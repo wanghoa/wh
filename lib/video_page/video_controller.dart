@@ -22,11 +22,12 @@ class VideoController {
   Future<void> init() async {
     // _videoData = fetchVideoData();//第一种方案
     // model = fetchVideoData2();//第二种方案
-    if (model == null) {      // 首先判断一级缓存 既内存中是否有数据
-      // 没有，从二级或三级缓存中查找 then 为异步执行
-      // fetchVideoData3().then((value)=>model = value);//先执行方法 获取到value值 ，再将value赋值给model
-      model = await fetchVideoData3(); // 使用await 会阻塞流程；就是init方法执行后，程序才会向下执行其他方法如 ：VideoList的生命周期build()
-    }
+    model ??= await fetchVideoData3();
+    // if (model == null) {      // 首先判断一级缓存 既内存中是否有数据
+    //   // 没有，从二级或三级缓存中查找 then 为异步执行
+    //   // fetchVideoData3().then((value)=>model = value);//先执行方法 获取到value值 ，再将value赋值给model
+    //   model = await fetchVideoData3(); // 使用await 会阻塞流程；就是init方法执行后，程序才会向下执行其他方法如 ：VideoList的生命周期build()
+    // }
   }
 
 // 从Map中获取数据 //第一种方案
