@@ -67,7 +67,7 @@ class _PlayerPageState extends State<PlayerPage> {
     String savePath = "${dir?.path}/temp.mp4";
     var result = await Dio().download(urlPath, savePath,
         onReceiveProgress: (count, total) {
-      var progress = '${(count / total * 100).toInt}%';
+      var progress = '${(count / total * 100).toInt()}%';
       print('打印下载进度：$progress');
     });
     print('result:$result');
