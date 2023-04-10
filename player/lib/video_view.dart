@@ -23,13 +23,13 @@ class _VideoViewState extends State<VideoView> {
         children: [FijkView(player: widget.player),
           if(widget.player.state == FijkState.paused)
           // Image.asset('asset/images/play.png')
-          Align(
-            child: Image.asset('asset/images/play.png', width: 60, height: 60),
-            alignment: Alignment.center,)
+            Align(
+              child: Image.asset(
+                  'asset/images/play.png', width: 60, height: 60),
+              alignment: Alignment.center,)
         ],
-      ), onTap: () {
-      ontapVideo();
-    },
+      ), onTap: ontapVideo,
+
     )
 
     );
