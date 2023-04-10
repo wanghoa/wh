@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wh/main.dart';
 import 'package:wh/player_page.dart';
 import 'package:wh/second_page.dart';
+import 'package:wh/video_page/video_list.dart';
 
 /**
  * 页面路由
@@ -13,18 +14,17 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   static const String mainPage = '/main';
   static const String secondPage = '/second';
   static const String playerPage = '/player';
+  static const String videoList = '/video_list';
   static const String key = 'key';
-  static const String value ='value';
+  static const String value = 'value';
 
   final List<Page> _pages = []; //存储页面结构的列表，通过操作它进行页面的添加与移除
   // 用来做异步操作
   late Completer<Object?> _boolResultCompleter;
 
-
-  MCRouter(){
-   _pages.add(_createPage(const  RouteSettings(name: mainPage,arguments: [])));
+  MCRouter() {
+    _pages.add(_createPage(const RouteSettings(name: mainPage, arguments: [])));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +32,16 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
         key: navigatorKey, pages: List.of(_pages), onPopPage: _onPopPage);
   }
 
-
   @override
   Future<bool> popRoute({Object? params}) {
     //notifyListeners(); 之后的 回调
-    if((params != null)){
+    if ((params != null)) {
       _boolResultCompleter.complete(params);
-
     }
     if (_canPop()) {
       _pages.removeLast();
-          notifyListeners();
-          return Future.value(true);
-
+      notifyListeners();
+      return Future.value(true);
     }
     return _confirmExit();
   }
@@ -53,9 +50,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   GlobalKey<NavigatorState> get navigatorKey => GlobalKey<NavigatorState>();
 
   @override
-  Future<void> setNewRoutePath(List<RouteSettings> configuration) async {
-
-  }
+  Future<void> setNewRoutePath(List<RouteSettings> configuration) async {}
 
   /**
    * 页面显示后的回调
@@ -79,11 +74,11 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     return _pages.length > 1;
   }
 
-  void replace({required  String name , dynamic arguments}){
+  void replace({required String name, dynamic arguments}) {
     if (_pages.isNotEmpty) {
-    _pages.removeLast();
+      _pages.removeLast();
     }
-    push(name: name,argument: arguments);
+    push(name: name, argument: arguments);
   }
 
   /**
@@ -99,7 +94,6 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     return _boolResultCompleter.future;
   }
 
-
   MaterialPage _createPage(RouteSettings routeSettings) {
     Widget page;
     switch (routeSettings.name) {
@@ -107,35 +101,41 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
         page = const MyHomePage(title: "My home page");
         break;
       case secondPage:
-        page = SecondPage(params: routeSettings.arguments.toString()?? '');
+        page = SecondPage(params: routeSettings.arguments.toString() ?? '');
         break;
       case playerPage:
         page = PlayerPage();
         break;
+      case videoList:
+        page = VideoList();
+        break;
       default:
         page = const Scaffold();
     }
-    return MaterialPage(child: page,
+    return MaterialPage(
+        child: page,
         key: Key(routeSettings.name!) as LocalKey,
         name: routeSettings.name,
         arguments: routeSettings.arguments);
   }
 
-  Future<bool> _confirmExit() async{
+  Future<bool> _confirmExit() async {
     final result = await showDialog<bool>(
-        context: navigatorKey.currentContext!, builder: (BuildContext context) {
-      return AlertDialog(content: const Text('确认退出吗'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context, true),
-              child: const Text('取消')),
-          TextButton(onPressed: () => Navigator.pop(context, false),
-              child: const Text('确定'))
-        ],);
-    },
+      context: navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const Text('确认退出吗'),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('取消')),
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('确定'))
+          ],
+        );
+      },
     );
-    return result?? true;
-
+    return result ?? true;
   }
-
-
 }
