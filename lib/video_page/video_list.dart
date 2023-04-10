@@ -39,13 +39,13 @@ class _VideoListState extends State<VideoList> {
                     absorbing: true,
                     child: VideoView(Player()
                       ..setCommonDataSource(
-                        _controller.model.url,
+                        _controller.model?.url??'',
                         type: SourceType.asset,
                         autoPlay: true,
                       )),
                   ),
                   onTap: () async => await router.push(
-                      name: MCRouter.playerPage, argument: _controller.model.url));
+                      name: MCRouter.playerPage, argument: _controller.model?.url??''));
             }));
   }
 }
