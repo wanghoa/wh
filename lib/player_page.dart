@@ -14,7 +14,8 @@ class PlayerPage extends StatefulWidget {
 class _PlayerPageState extends State<PlayerPage> {
   static const String url =
       'https://sample-videos.com/video123/flv/240/big_buck_bunny_240p_10mb.flv';
-   String version = 'null';
+  String version = 'null';
+
   @override
   void initState() {
     super.initState();
@@ -24,18 +25,37 @@ class _PlayerPageState extends State<PlayerPage> {
     //   setState(()=>version = value);
     // });
   }
+
   @override
   Widget build(BuildContext context) {
-
-    var  player = Player();
-    player.setCommonDataSource(url,autoPlay: true);
-    return VideoView(player);
-
+    var player = Player();
+    player.setCommonDataSource(url, autoPlay: true);
+    // 长按视频弹窗
+    return GestureDetector(
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("提示"),
+                  content: Text("确认下载视频吗"),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context, 'cancer'),
+                        child: Text('取消')),
+                    TextButton(
+                        onPressed: () => print('mooc,确认下载'),
+                        child: const Text('确认')),
+                  ],
+                );
+              });
+        },
+        child: VideoView(player));
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   var player = FijkPlayer()..setDataSource(url,autoPlay: true);
-  //   return Scaffold(body:FijkView(player: player));
-  // }
+// @override
+// Widget build(BuildContext context) {
+//   var player = FijkPlayer()..setDataSource(url,autoPlay: true);
+//   return Scaffold(body:FijkView(player: player));
+// }
 }
