@@ -1,7 +1,11 @@
 class VideoModel {
+  String title = '';
+  String url = '';
+  int playCount = 0;
 
-  String title  ='';
-  String url='';
-  int playCount =0;
+  VideoModel(this.title, this.url, this.playCount); // win+n (MAC Command+N)
 
+  // 相当于Java实现工厂设计模式
+  factory VideoModel.fromJson(Map<String, dynamic> json) =>
+      VideoModel(json['title'], json['url'], json['playCount']);
 }
