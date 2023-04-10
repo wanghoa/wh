@@ -20,7 +20,7 @@ void init(){
 
 String get title => _videoData['title'];
 String get url=> _videoData['url'];
-String get playCount => _videoData['playCount'];
+int get playCount => _videoData['playCount'];
 
 
   /**
