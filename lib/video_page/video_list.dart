@@ -20,7 +20,7 @@ class _VideoListState extends State<VideoList> {
   void initState() {
     super.initState();
     _controller =VideoController(); //这种初始化方式，如果在_VideoListState被复用场景 一个_VideoListState对应一个 VideoController
-    _controller.init();
+    _controller.init().then((value) => setState((){}));
   }
 
   @override
