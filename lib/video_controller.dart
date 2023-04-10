@@ -17,7 +17,7 @@ Map<String,dynamic> _videoData = {};
 void init(){
   _videoData = fetchVideoData();
 }
-
+// 从Map中获取数据
 String get title => _videoData['title'];
 String get url=> _videoData['url'];
 int get playCount => _videoData['playCount'];
