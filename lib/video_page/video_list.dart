@@ -30,7 +30,7 @@ class _VideoListState extends State<VideoList> {
         body: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3),
-            itemCount: 10,
+            itemCount: 18,
             itemBuilder: (context, index) {
               //实际项目中，通过DataList[index]获取url
               // var url =

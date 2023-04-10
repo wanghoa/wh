@@ -11,7 +11,7 @@ class Player extends FijkPlayer {
 
   static const cache_switch = 'ijkio:cache:ffio:'; //ijk官方文档提供的
   static String _cachePath =
-      '/storage/emulated/0/Android/data/包名/file'; // 默认cachePath
+      '/storage/emulated/0/Android/data/com.example.wh/file'; // 默认cachePath
   bool enbaleCache = true;
   static const asset_url_suffix = 'asset：///';
 
