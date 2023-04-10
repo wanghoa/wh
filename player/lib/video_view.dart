@@ -19,8 +19,8 @@ class _VideoViewState extends State<VideoView> {
       child: Stack(
         children: [
           AbsorbPointer(absorbing: true,child:FijkView(player: widget.player)),
-          if(widget.player.state == FijkState.paused)
-            Align(
+          if(widget.player.state == FijkState.paused)//播放器状态
+            Align(// 居中对齐
               child: Image.asset(
                   'asset/images/play.png', width: 60, height: 60),
               alignment: Alignment.center,)
