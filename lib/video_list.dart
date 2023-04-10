@@ -4,6 +4,7 @@ import 'package:player/player.dart';
 import 'package:player/video_view.dart';
 import 'package:wh/main.dart';
 import 'package:wh/mc_router.dart';
+import 'package:wh/video_controller.dart';
 
 class VideoList extends StatefulWidget {
   @override
@@ -11,6 +12,16 @@ class VideoList extends StatefulWidget {
 }
 
 class _VideoListState extends State<VideoList> {
+
+  late VideoController _controller;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =VideoController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
