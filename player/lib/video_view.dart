@@ -17,14 +17,30 @@ class VideoView extends StatefulWidget {
 class _VideoViewState extends State<VideoView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Stack(
-      children: [FijkView(player: widget.player),
-        // Image.asset('asset/images/play.png')
-        Align(child: Image.asset('asset/images/play.png', width: 60, height: 60),
-          alignment: Alignment.center,)
+    return Scaffold(body:
+    GestureDetector(
+      child: Stack(
+        children: [FijkView(player: widget.player),
+          // Image.asset('asset/images/play.png')
+          Align(
+            child: Image.asset('asset/images/play.png', width: 60, height: 60),
+            alignment: Alignment.center,)
 
-      ],
-    ));
+        ],
+      ), onTap: () {
+      ontapVideo();
+    },
+    )
+
+    );
   }
 
+  void ontapVideo() {
+    if (widget.player.state == FijkState.paused) { //暂停
+      widget.player.start();
+    } else {
+      widget.player.pause();
+    }
+    setState(() {}); // 触发重绘
+  }
 }
