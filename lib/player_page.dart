@@ -1,6 +1,8 @@
 // import 'package:fijkplayer/fijkplayer.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:player/player.dart';
 import 'package:player/video_view.dart';
 
@@ -44,13 +46,31 @@ class _PlayerPageState extends State<PlayerPage> {
                         onPressed: () => Navigator.pop(context, 'cancer'),
                         child: Text('取消')),
                     TextButton(
-                        onPressed: () => print('mooc,确认下载'),
+                        onPressed: () => _saveVideo(url),
                         child: const Text('确认')),
                   ],
                 );
               });
         },
         child: VideoView(player));
+  }
+
+  /**
+   * 下载视频并存储到本地
+   */
+  void _saveVideo(String urlPath) async {
+    print('save video:$url');
+    // var path = getAppPath();// 内部使用MethodChannel 调用到native层。分别在Android与iOS上实现MethodChannel。返回用户可以保存的路径
+    // 这里我们使用第三方库也是使用MethodChannel
+    var dir =
+        await getExternalStorageDirectory(); // 获取Android sdcart视频存储路径；Android与iOS不同
+    String savePath = "${dir?.path}/temp.mp4";
+    var result = await Dio().download(urlPath, savePath,
+        onReceiveProgress: (count, total) {
+      var progress = '${(count / total * 100).toInt}%';
+      print('打印下载进度：$progress');
+    });
+    print('result:$result');
   }
 
 // @override
