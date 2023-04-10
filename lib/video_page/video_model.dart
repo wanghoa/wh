@@ -7,5 +7,5 @@ class VideoModel {
 
   // 相当于Java实现工厂设计模式
   factory VideoModel.fromJson(Map<String, dynamic> json) =>
-      VideoModel(json['title'], json['url'], json['playCount']);
+      VideoModel(json['title'], json['url'], json['playCount']);// 这里的title,url,playCount 要与服务端一致
 }
