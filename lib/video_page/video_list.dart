@@ -35,7 +35,9 @@ class _VideoListState extends State<VideoList> {
               // var url =
               //     'https://sample-videos.com/video123/flv/240/big_buck_bunny_240p_10mb.flv';
               return GestureDetector(
-                  child: AbsorbPointer(
+                  child: _controller.model== null
+                ?Container():
+                  AbsorbPointer(
                     absorbing: true,
                     child: VideoView(Player()
                       ..setCommonDataSource(
