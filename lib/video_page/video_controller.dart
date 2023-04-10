@@ -15,11 +15,11 @@ class VideoController {
   "playCount":66}  """; //三引号内的为字符串数据  模拟服务端返回的json数据
 
   // Map<String, dynamic> _videoData = {};//第一种方案
-  late VideoModel _model; //第二种方案
+  late VideoModel model; //第二种方案
 
   void init() {
     // _videoData = fetchVideoData();//第一种方案
-    _model = fetchVideoData2();//第二种方案
+    model = fetchVideoData2();//第二种方案
   }
 
 // 从Map中获取数据 //第一种方案
