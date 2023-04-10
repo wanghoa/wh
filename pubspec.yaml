@@ -42,7 +42,7 @@ dependencies:
   path_provider: ^2.0.11
   json_serializable: ^6.6.1
   json_annotation: ^4.8.0
-  build_runner: ^2.1.11
+  build_runner: ^2.3.3
 
 dev_dependencies:
   flutter_test:
