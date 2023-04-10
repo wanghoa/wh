@@ -39,4 +39,10 @@ class _VideoViewState extends State<VideoView> {
     }
     setState(() {}); // 触发重绘
   }
+  @override
+  void dispose() {
+    super.dispose();
+    //页面退出释放播放器(回收资源)
+    widget.player.release();
+  }
 }
