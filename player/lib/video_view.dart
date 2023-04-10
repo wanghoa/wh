@@ -20,7 +20,7 @@ class _VideoViewState extends State<VideoView> {
     return Scaffold(body: Stack(
       children: [FijkView(player: widget.player),
         // Image.asset('asset/images/play.png')
-        Align(child: Image.asset('name', width: 60, height: 60),
+        Align(child: Image.asset('asset/images/play.png', width: 60, height: 60),
           alignment: Alignment.center,)
 
       ],
