@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:player/player.dart';
 import 'package:player/video_view.dart';
 import 'package:wh/main.dart';
