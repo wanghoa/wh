@@ -60,9 +60,6 @@ class VideoController {
       sp.setString('videoModel', ServerData.fetchDataFromServer());
       return VideoModel.fromJson(model);
     }
-
-
-
     return VideoModel.fromJson(jsonDecode(ServerData.fetchDataFromServer()));
   }
 }
