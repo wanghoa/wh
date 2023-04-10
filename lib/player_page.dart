@@ -63,11 +63,14 @@ class _PlayerPageState extends State<PlayerPage> {
    */
   void _saveVideo(String urlPath) async {
     print('save video:$url');
+    //url 也是uri 我们通过uri将URL解析出来
+    Uri uri = Uri.parse(urlPath);
+    String name = uri.pathSegments.last; // 获取路径
     // var path = getAppPath();// 内部使用MethodChannel 调用到native层。分别在Android与iOS上实现MethodChannel。返回用户可以保存的路径
     // 这里我们使用第三方库也是使用MethodChannel
     var dir =
         await getExternalStorageDirectory(); // path_provider库  获取sdcart视频存储路径；Android与iOS分别获取不同路径
-    String savePath = "${dir?.path}/temp.mp4";
+    String savePath = "${dir?.path}/$name";
     var result = await Dio().download(urlPath, savePath,
         onReceiveProgress: (count, total) {
       var progress = '${(count / total * 100).toInt()}%';
