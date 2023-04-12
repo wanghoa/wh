@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:player/player.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wh/mc_router.dart';
 
 void main() {
   runApp(const MyApp());
+  init();
 }
-var router =  MCRouter(); // 创建Router
+String extStorage= '/stroage/emulated/0/Adnroid/data/com.example.wh/files';
+void init() {
+  getExternalStorageDirectory().then((value) {
+  extStorage = value?.path ??extStorage;
+    Player.setCachePath(extStorage);
+  });
+}
+var router = MCRouter(); // 创建Router
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,7 +39,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: Router(routerDelegate: router,backButtonDispatcher: RootBackButtonDispatcher(),),
+      home: Router(
+        routerDelegate: router,
+        backButtonDispatcher: RootBackButtonDispatcher(),
+      ),
     );
   }
 }
@@ -53,56 +67,60 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
   // const 定义常量
-  static const _channel = BasicMessageChannel('messageChannel',StringCodec());//消息通道 传递字符串 和半结构化信息
+  static const _channel =
+      BasicMessageChannel('messageChannel', StringCodec()); //消息通道 传递字符串 和半结构化信息
   static const _eventChannel = EventChannel('eventChannel');
   static const _methodChannel = MethodChannel('methodChannel');
   String? _message;
+  late SharedPreferences sp;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // 通过BasicMessageChannel 实例，注册一个接收回调，并且返回信息
-    _channel.setMessageHandler((message) async {// 注册监听
+    _channel.setMessageHandler((message) async {
+      // 注册监听
       print('receive message: $message');
       setState(() {
-       _message = message;
+        _message = message;
       });
       return "aaaaa";
     });
     // 注册广播流监听
     _eventChannel.receiveBroadcastStream().listen((event) {
-
-        print('Receive event: $event');
-            setState(() {
-              _message = event;
-            });
+      print('Receive event: $event');
+      setState(() {
+        _message = event;
+      });
     });
 
-     getFlutterInfo();
-
-
+    getFlutterInfo();
   }
 
   Future<String> getFlutterInfo() async {
-       final Map<String,dynamic> map = {
-      'name':'flutter',
-    'version':'3.0.1',
-    'language':'dart',
-    'android_api':21
+    final Map<String, dynamic> map = {
+      'name': 'flutter',
+      'version': '3.0.1',
+      'language': 'dart',
+      'android_api': 21
     };
-    String result = await _methodChannel.invokeMethod('getFlutterINfo',map);
+    String result = await _methodChannel.invokeMethod('getFlutterINfo', map);
+    sp = await SharedPreferences.getInstance();
+    sp.setString('name', map['name']);
     return result;
   }
 
-  Future<void> _sendMessage() async{
+  Future<void> _sendMessage() async {
     //异步写法：  .then()
 // _channel.send('hello').then((value) => null)
-  //阻塞式 同步写法  函数只执行一句话  使用await或then 都可以  如果上方还有逻辑，上下存在时序问题 选用then
-    String? message =  await _channel.send('flutter端将信息传给Android----------------------');
+    //阻塞式 同步写法  函数只执行一句话  使用await或then 都可以  如果上方还有逻辑，上下存在时序问题 选用then
+    String? message =
+        await _channel.send('flutter端将信息传给Android----------------------');
     print('send message $message');
-
   }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -114,11 +132,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
- Future<void> _jumpToPage()async{
-   // var ack = await router.push(name: MCRouter.secondPage,argument: {MCRouter.key:'来自主页面（mainPage）'});
-    var ack = await router.push(name: MCRouter.playerPage,argument: '来自主页面（mainPage）');
+  Future<void> _jumpToPage() async {
+    // var ack = await router.push(name: MCRouter.secondPage,argument: {MCRouter.key:'来自主页面（mainPage）'});
+    var ack = await router.push(
+        name: MCRouter.videoList, argument: '来自主页面（mainPage）');
     print('_jumpToPage: $ack');
-
   }
 
   @override
