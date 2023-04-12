@@ -39,7 +39,7 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
                   size: widget.size, color: Colors.redAccent),
             )
         ]),
-        onTapDown: (details) {
+        onDoubleTapDown: (details) {
           temp = details.globalPosition;
         },
         onDoubleTap: () {
