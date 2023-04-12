@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class FavoriteGesture extends StatefulWidget {
   final Widget child;
 
-  const FavoriteGesture(this.child);
+  const FavoriteGesture(this.child,  {Key? key}):super(key: key);
 
   @override
   State<StatefulWidget> createState() => _FavoriteGestureState();
