@@ -15,7 +15,7 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
   }
 
