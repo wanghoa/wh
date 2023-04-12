@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class FavoriteGesture extends StatefulWidget {
   final Widget child;
 
-  const FavoriteGesture({required this.child,  Key? key}):super(key: key);
+  const FavoriteGesture({required this.child, Key? key}) :super(key: key);
 
   @override
   State<StatefulWidget> createState() => _FavoriteGestureState();
@@ -19,10 +19,12 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(// 堆叠（FrameLayout）
+    return GestureDetector(child: Stack( // 堆叠（FrameLayout）
         children: [
-      Container(width: double.infinity, color: Colors.black),
-      const Icon(Icons.favorite, size: 100, color: Colors.redAccent)
-    ]);
+          Container(width: double.infinity, color: Colors.black),
+          const Icon(Icons.favorite, size: 100, color: Colors.redAccent)
+        ]),onDoubleTap: (){
+         // 双击事件
+    });
   }
 }
