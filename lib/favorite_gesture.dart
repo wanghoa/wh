@@ -12,6 +12,7 @@ class FavoriteGesture extends StatefulWidget {
 
 class _FavoriteGestureState extends State<FavoriteGesture> {
   bool isFavorite = false;
+  Offset temp =  Offset.zero;//Offset 存储坐标的
 
   @override
   void initState() {
@@ -29,6 +30,9 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
             //默认 Icon 不显示
             const Icon(Icons.favorite, size: 100, color: Colors.redAccent)
         ]),
+        onTapDown: (details){
+          temp = details.globalPosition;
+        },
         onDoubleTap: () {
           // 双击事件  双击刷新页面
           setState(() {
