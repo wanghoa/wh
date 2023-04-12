@@ -30,26 +30,26 @@ class _VideoListState extends State<VideoList> {
         body: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3),
-            itemCount: 18,
+            itemCount: _controller.dataList?.length,
             itemBuilder: (context, index) {
               //实际项目中，通过DataList[index]获取url
               // var url =
               //     'https://sample-videos.com/video123/flv/240/big_buck_bunny_240p_10mb.flv';
               return GestureDetector(
-                  child: _controller.model == null
+                  child: _controller.dataList == null
                       ? Container()
                       : AbsorbPointer(
                           absorbing: true,
                           child: VideoView(Player()
                             ..setCommonDataSource(
-                              _controller.model?.url ?? '',
+                              _controller.dataList![index].url ,
                               type: SourceType.asset,
                               autoPlay: true,
                             )),
                         ),
                   onTap: () async => await router.push(
                       name: MCRouter.playerPage,
-                      argument: _controller.model?.url ?? ''));
+                      argument: _controller.dataList![index].url));
             }));
   }
 }

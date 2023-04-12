@@ -7,6 +7,8 @@ import 'package:player/player.dart';
 import 'package:player/video_view.dart';
 
 class PlayerPage extends StatefulWidget {
+  final String videoUrl;
+  const PlayerPage({this.videoUrl=''});
   @override
   State<StatefulWidget> createState() {
     return _PlayerPageState();
@@ -31,7 +33,7 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   Widget build(BuildContext context) {
     var player = Player();
-    player.setCommonDataSource(url, autoPlay: true);
+    player.setCommonDataSource(widget.videoUrl, type:SourceType.net,autoPlay: true);
     // 长按视频弹窗
     return GestureDetector(
         onLongPress: () {
@@ -47,7 +49,7 @@ class _PlayerPageState extends State<PlayerPage> {
                         child: Text('取消')),
                     TextButton(
                         onPressed: () {
-                          _saveVideo(url);
+                          _saveVideo(widget.videoUrl);
                           Navigator.pop(context, '');
                         },
                         child: const Text('确认')),

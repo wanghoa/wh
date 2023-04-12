@@ -104,7 +104,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
         page = SecondPage(params: routeSettings.arguments.toString() ?? '');
         break;
       case playerPage:
-        page = PlayerPage();
+        page = PlayerPage(videoUrl: routeSettings.arguments.toString() ?? '');
         break;
       case videoList:
         page = VideoList();
