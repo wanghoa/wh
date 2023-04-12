@@ -26,19 +26,19 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        child: Stack( // 堆叠（FrameLayout）
+        child: Stack(// 堆叠（FrameLayout）
             children: [
-              Container(width: double.infinity, color: Colors.black),
-              // 这里Container 代替VideoView;
-              if (isFavorite)
-              // 作具体位置的摆放  //默认 Icon 不显示
-                Positioned(child: const Icon(
-                    Icons.favorite, size: widget.size, color: Colors.redAccent),
-                  top: temp.dy - widget.size / 2,
-                  left:temp.dx - widget.size/2,)
-
-
-            ]),
+          Container(width: double.infinity, color: Colors.black),
+          // 这里Container 代替VideoView;
+          if (isFavorite)
+            // 作具体位置的摆放  //默认 Icon 不显示
+            Positioned(
+              top: temp.dy - widget.size! / 2,
+              left: temp.dx - widget.size! / 2,
+              child: Icon(Icons.favorite,
+                  size: widget.size, color: Colors.redAccent),
+            )
+        ]),
         onTapDown: (details) {
           temp = details.globalPosition;
         },
