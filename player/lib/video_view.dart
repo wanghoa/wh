@@ -16,15 +16,16 @@ class _VideoViewState extends State<VideoView> {
   Widget build(BuildContext context) {
     return Scaffold(body:
     GestureDetector(
+      onTap: ontapVideo,
       child: Stack(
         children: [
           AbsorbPointer(absorbing: true,child:FijkView(player: widget.player)),
           if(widget.player.state == FijkState.paused)//播放器状态
             Align(// 居中对齐
+              alignment: Alignment.center,// 居中对齐
               child: Image.asset(
-                  'asset/images/play.png', width: 60, height: 60),
-              alignment: Alignment.center,)
-        ]), onTap: ontapVideo,
+                  'asset/images/play.png', width: 60, height: 60),)
+        ]),
 
     )
 
