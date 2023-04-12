@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 /*
 绘制红心 ，计算点赞坐标
  */
@@ -36,8 +37,9 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
         key: _key,
         child: Stack(// 堆叠（FrameLayout）
             children: [
-          Container(width: double.infinity, color: Colors.black),
-          // 这里Container 代替VideoView;
+          widget.child,
+          //child:VideoView
+          // Container(width: double.infinity, color: Colors.black),// 这里Container 代替VideoView;
           if (isFavorite)
             // 作具体位置的摆放  //默认 Icon 不显示
             Positioned(
