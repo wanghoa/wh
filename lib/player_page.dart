@@ -65,7 +65,7 @@ class _PlayerPageState extends State<PlayerPage> {
                 );
               });
         },
-        child: VideoView(player));)
+        child: VideoView(player)));
   }
 
   /**
