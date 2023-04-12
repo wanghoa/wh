@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+/*
+绘制红心 ，计算点赞坐标
+ */
 class FavoriteGesture extends StatefulWidget {
   static const double defaultSize = 100; //定义常量
   final Widget child;
@@ -16,7 +18,12 @@ class FavoriteGesture extends StatefulWidget {
 
 class _FavoriteGestureState extends State<FavoriteGesture> {
   bool isFavorite = false;
+  final GlobalKey _key = GlobalKey();
   Offset temp = Offset.zero; //Offset 存储坐标的
+  Offset _globalToLocal(Offset offset) {
+    RenderBox renderBox = _key.currentContext?.findRenderObject() as RenderBox;
+    return renderBox.globalToLocal(offset);
+  }
 
   @override
   void initState() {
@@ -26,6 +33,7 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        key: _key,
         child: Stack(// 堆叠（FrameLayout）
             children: [
           Container(width: double.infinity, color: Colors.black),
@@ -40,7 +48,7 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
             )
         ]),
         onDoubleTapDown: (details) {
-          temp = details.globalPosition;
+          temp = _globalToLocal(details.globalPosition);
         },
         onDoubleTap: () {
           // 双击事件  双击刷新页面
