@@ -6,7 +6,7 @@ import 'package:wh/player_page.dart';
 import 'package:wh/second_page.dart';
 import 'package:wh/video_page/video_list.dart';
 
-/**
+/*
  * 页面路由
  */
 class MCRouter extends RouterDelegate<List<RouteSettings>>
@@ -52,7 +52,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
   @override
   Future<void> setNewRoutePath(List<RouteSettings> configuration) async {}
 
-  /**
+  /*
    * 页面显示后的回调
    * route
    * result
@@ -67,7 +67,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     }
   }
 
-  /**
+  /*
    * 判断page栈长度，为空则即将退出App；不为空则返回true 表示页面关闭
    */
   bool _canPop() {
@@ -81,7 +81,7 @@ class MCRouter extends RouterDelegate<List<RouteSettings>>
     push(name: name, argument: arguments);
   }
 
-  /**
+  /*
    * name 页面名称
    * argument 参数可有可无 也可以时任意类型
    * 开启页面为异步操作
