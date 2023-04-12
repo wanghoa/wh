@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteGesture extends StatefulWidget {
+  final Widget child;
 
+  const FavoriteGesture(this.child);
 
   @override
   State<StatefulWidget> createState() => _FavoriteGestureState();
