@@ -11,7 +11,7 @@ class FavoriteGesture extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _FavoriteGestureState();
+  State<FavoriteGesture> createState() => _FavoriteGestureState();
 }
 
 class _FavoriteGestureState extends State<FavoriteGesture> {
