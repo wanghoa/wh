@@ -17,12 +17,12 @@ class VideoController {
   // "playCount":66}  """; //三引号内的为字符串数据  模拟服务端返回的json数据
 
   // Map<String, dynamic> _videoData = {};//第一种方案
-   VideoModel? model; //第二种方案
+  List<VideoModel> ? dataList; //第二种方案
 
   Future<void> init() async {
     // _videoData = fetchVideoData();//第一种方案
     // model = fetchVideoData2();//第二种方案
-    model ??= await fetchVideoData3();
+    dataList ??= (await fetchVideoData3()) ;
     // if (model == null) {      // 首先判断一级缓存 既内存中是否有数据
     //   // 没有，从二级或三级缓存中查找 then 为异步执行
     //   // fetchVideoData3().then((value)=>model = value);//先执行方法 获取到value值 ，再将value赋值给model
@@ -46,20 +46,22 @@ class VideoController {
   //   return VideoModel.fromJson(jsonDecode(_serverData));
   // }
   // 增加缓存逻辑  第三种优化方案
-  Future<VideoModel> fetchVideoData3() async{
+  Future<List<VideoModel>> fetchVideoData3() async{
     var sp  = await SharedPreferences.getInstance();
     var modelStr = sp.getString('videoModel');
     if (modelStr != null && modelStr.isNotEmpty) {
       // 二级缓存中有数据直接使用 。（一级缓存是内存）
-      return VideoModel.fromJson(jsonDecode(modelStr));
-
+      var list = jsonDecode(modelStr) as List<dynamic>;
+      return list.map((e) => VideoModel.fromJson(e)).toList();
     }else{
       //三级缓存
-      var model = jsonDecode(ServerData.fetchDataFromServer());
+      var list = jsonDecode(ServerData.fetchDataFromServer());
       var sp = await SharedPreferences.getInstance();
       sp.setString('videoModel', ServerData.fetchDataFromServer());
-      return VideoModel.fromJson(model);
+
+      return list.map((e) => VideoModel.fromJson(e)).toList();
+      // return VideoModel.fromJson(model);// List<dynamic> ia not a subtype fo type
     }
-    return VideoModel.fromJson(jsonDecode(ServerData.fetchDataFromServer()));
+    // return VideoModel.fromJson(jsonDecode(ServerData.fetchDataFromServer()));
   }
 }
