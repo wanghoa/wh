@@ -68,7 +68,7 @@ class _PlayerPageState extends State<PlayerPage> {
         child: VideoView(player)));
   }
 
-  /**
+  /*
    * 下载视频并存储到本地
    */
   void _saveVideo(String urlPath) async {
