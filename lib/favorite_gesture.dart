@@ -35,34 +35,37 @@ class _FavoriteGestureState extends State<FavoriteGesture> {
 
   @override
   Widget build(BuildContext context) {
+    var iconStack = Stack(
+        children: // 堆积效果使用Stack 多红心堆叠；渲染逻辑， 使用map进行遍历
+            iconOffsets
+                .map((e) => FavoriteAnimationIcon(
+                      // e: 每个坐标集合
+                      key: Key(e.toString()),
+                      size: widget.size,
+                      position: e,
+                      onAnimationComplete: () {
+                        iconOffsets.remove(e); // 动画完成 进行移除
+                      },
+                    ))
+                .toList());
+
     return GestureDetector(
         key: _key,
         child: Stack(// 堆叠（FrameLayout）
             children: [
+          // VideoView  //child:VideoView
           widget.child,
-          //child:VideoView
           // Container(width: double.infinity, color: Colors.black),// 这里Container 代替VideoView;
-          // if (isFavorite)
-          // 作具体位置的摆放  //默认 Icon 不显示
-          Positioned(
-              top: temp.dy - widget.size! / 2,
-              left: temp.dx - widget.size! / 2,
-              child: FavoriteAnimationIcon(
-                key: GlobalKey(),
-                size: widget.size,
-                onAnimationComplete: () {},
-              ))
+          iconStack
         ]),
         onDoubleTapDown: (details) {
           temp = _globalToLocal(details.globalPosition);
         },
         onDoubleTap: () {
           // 双击事件  双击刷新页面
-          iconOffsets.add(temp);
-          setState(() {
-            // isFavorite = true;
-          });
-          // //延时
+          setState(() =>
+              iconOffsets.add(temp)); // 添加到坐标集合，触发一次重绘，根据坐标集合来在不同的坐标上渲染icon
+          // //延时  注释掉 通过动画完成
           // Future.delayed(Duration(milliseconds: 600), () {
           //   //(){} 闭包
           //   setState(() {
