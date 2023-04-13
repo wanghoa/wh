@@ -48,12 +48,17 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
 
   @override
   Widget build(BuildContext context) {
+    // Transform.translate(offset: offset)// 平移动画
+    // Transform.rotate(angle: angle)// 旋转
     var content =
         Icon(Icons.favorite, size: widget.size, color: Colors.redAccent);
+    // 缩放动画
+    var child = Transform.scale(
+        scale: scale, alignment: Alignment.bottomCenter, child: content);
     return Positioned(
         top: widget.position.dy - widget.size! / 2,
         left: widget.position.dx - widget.size! / 2,
-        child: Opacity(opacity: opacity, child: content)); // 透明度动画
+        child: Opacity(opacity: opacity, child: child)); // 透明度动画
   }
 
   /// 需要得到的结果，是透明度的进度值百分比
@@ -63,8 +68,9 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
       return value / appearValue; //
     }
     if (value < dismissValue) {
-      return 1; // 不需要动画
+      return 1; // 展示阶段,不需要动画
     }
+    // 渐隐阶段，
     return (1 - value) / (1 - dismissValue);
   }
 
@@ -77,6 +83,20 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
 
     /// await 是同步方法 动画播放完成才会向下执行代码
     widget.onAnimationComplete?.call();
+  }
+
+  // 计算缩放动画尺寸
+  double get scale {
+    if (value < appearValue) {
+      // 处于出现阶段
+      return 1 + appearValue - value;
+    }
+    if (value < dismissValue) {
+      // 正常展示阶段
+      return 1;
+    }
+    // 消失放大阶段
+    return 1 + (value - dismissValue) / (1 - dismissValue);
   }
 
   @override
