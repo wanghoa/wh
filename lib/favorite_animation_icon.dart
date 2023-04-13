@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +31,10 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
   // 消失的进度值
   static const double dismissValue = 0.8;
 
+  final double angle =
+      pi / 10 * (2 * Random().nextDouble() - 1); // 创建时就已确定不会再修改它加上final
+  // double get angle => pi / 10 * (2 * Random().nextDouble() - 1);
+
   _FavoriteAnimationIconState();
 
   @override
@@ -49,12 +55,16 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
   @override
   Widget build(BuildContext context) {
     // Transform.translate(offset: offset)// 平移动画
-    // Transform.rotate(angle: angle)// 旋转
+
     var content =
         Icon(Icons.favorite, size: widget.size, color: Colors.redAccent);
-    // 缩放动画
-    var child = Transform.scale(
-        scale: scale, alignment: Alignment.bottomCenter, child: content);
+    var child = Transform.rotate(
+        angle: angle,
+        child: Transform.scale(
+            scale: scale,
+            alignment: Alignment.bottomCenter,
+            child: content)); //随机角度 旋转动画 + 缩放动画
+
     return Positioned(
         top: widget.position.dy - widget.size! / 2,
         left: widget.position.dx - widget.size! / 2,
