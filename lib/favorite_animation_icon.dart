@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteAnimationIcon extends StatefulWidget {
-  final Offset position;///保存每个坐标
+  final Offset position;
+
+  ///保存每个坐标
   final double size;
   final Function? onAnimationComplete;
 
@@ -54,15 +56,16 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
         child: Opacity(opacity: opacity, child: content)); // 透明度动画
   }
 
+  /// 需要得到的结果，是透明度的进度值百分比
   double get opacity {
     if (value < appearValue) {
       // 处于渐进阶段。播放透明度动画
-      return 1 / appearValue * value; //
+      return value / appearValue; //
     }
     if (value < dismissValue) {
-      return 1;
+      return 1; // 不需要动画
     }
-    return (value - dismissValue) / (1 - dismissValue) + 1;
+    return (1 - value) / (1 - dismissValue);
   }
 
   double get value {
