@@ -55,15 +55,24 @@ class _FavoriteAnimationIconState extends State<FavoriteAnimationIcon>
   @override
   Widget build(BuildContext context) {
     // Transform.translate(offset: offset)// 平移动画
-
     var content =
         Icon(Icons.favorite, size: widget.size, color: Colors.redAccent);
-    var child = Transform.rotate(
-        angle: angle,
-        child: Transform.scale(
-            scale: scale,
-            alignment: Alignment.bottomCenter,
-            child: content)); //随机角度 旋转动画 + 缩放动画
+    // 特效优化 实现渐变效果
+    var child = ShaderMask(
+        blendMode: BlendMode.srcATop,
+        shaderCallback: (Rect bounds) => RadialGradient(colors: [
+              Color(0XFFEE6E6E),
+              Color(0XFFF03F3F)
+            ], center: Alignment.topLeft.add(const Alignment(0.66, 0.66))) // 方向
+                .createShader(bounds),
+        child: Transform.rotate(
+            angle: angle,
+            child: Transform.scale(
+                scale: scale,
+                alignment: Alignment.bottomCenter,
+                child: content)));
+
+    ; //随机角度 旋转动画 + 缩放动画
 
     return Positioned(
         top: widget.position.dy - widget.size! / 2,
